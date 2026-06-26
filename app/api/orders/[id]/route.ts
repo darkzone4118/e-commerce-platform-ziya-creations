@@ -15,7 +15,8 @@ export async function GET(
 
     await connectDB();
 
-    const order = await Order.findOne({ orderId: params.id, user: auth.userId })
+    // Only show paid orders
+    const order = await Order.findOne({ orderId: params.id, user: auth.userId, paymentStatus: 'completed' })
       .populate('items.product', 'name price images')
       .populate('address');
 

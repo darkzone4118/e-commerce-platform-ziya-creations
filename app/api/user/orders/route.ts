@@ -12,7 +12,8 @@ export async function GET(request: NextRequest) {
 
     await connectDB();
 
-    const orders = await Order.find({ user: auth.userId })
+    // Only show completed/paid orders
+    const orders = await Order.find({ user: auth.userId, paymentStatus: 'completed' })
       .populate('items.product', 'name price images')
       .sort('-createdAt');
 

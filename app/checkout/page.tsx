@@ -210,16 +210,19 @@ export default function Checkout() {
   const [success, setSuccess] = useState('');
 
   useEffect(() => {
-    if (!user || !authToken) {
-      router.push('/auth/login');
-      return;
-    }
     if (items.length === 0) {
       router.push('/cart');
       return;
     }
-    fetchAddresses();
-  }, [user, items, router, authToken]);
+    // Only redirect if we have checked auth and user is not logged in
+    if (!authToken && !loading) {
+      router.push('/auth/login');
+      return;
+    }
+    if (user && authToken) {
+      fetchAddresses();
+    }
+  }, [user, items, router, authToken, loading]);
 
   const fetchAddresses = async () => {
     try {
@@ -358,17 +361,25 @@ export default function Checkout() {
 
                   if (verifyResponse.data.statusCode === 'SUCCESS') {
                     setSuccess('Payment successful! Order confirmed.');
+                    setOrderLoading(false);
                     setTimeout(() => {
                       clearCart();
                       router.push(`/orders/${orderId}`);
                     }, 1500);
                   } else {
                     setError('Payment verification failed. Please contact support.');
+                    setOrderLoading(false);
                   }
                 } catch (err: any) {
                   setError(err.response?.data?.message || 'Payment verification failed');
+                  setOrderLoading(false);
                 }
-                setOrderLoading(false);
+              },
+              modal: {
+                ondismiss: () => {
+                  setOrderLoading(false);
+                  setError('Payment cancelled. Please try again.');
+                },
               },
               prefill: {
                 name: user.name,
