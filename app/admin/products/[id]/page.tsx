@@ -91,7 +91,6 @@ export default function EditProductPage() {
           setError('Product not found');
         }
       } catch (err) {
-        console.error('[v0] Load product error:', err);
         setError('Failed to load product');
       } finally {
         setLoading(false);

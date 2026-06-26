@@ -49,7 +49,6 @@ export async function GET(request: NextRequest) {
       'SUCCESS'
     );
   } catch (error) {
-    console.error('[v0] Get admin coupons error:', error);
     return createErrorResponse('Failed to fetch coupons', 500, 'SERVER_ERROR');
   }
 }
@@ -88,7 +87,6 @@ export async function PUT(request: NextRequest) {
 
     return createResponse(coupon, 'Coupon updated successfully', 200, 'SUCCESS');
   } catch (error) {
-    console.error('[v0] Update coupon error:', error);
     return createErrorResponse('Failed to update coupon', 500, 'SERVER_ERROR');
   }
 }
@@ -124,7 +122,6 @@ export async function DELETE(request: NextRequest) {
 
     return createResponse({ couponId }, 'Coupon deleted successfully', 200, 'SUCCESS');
   } catch (error) {
-    console.error('[v0] Delete coupon error:', error);
     return createErrorResponse('Failed to delete coupon', 500, 'SERVER_ERROR');
   }
 }

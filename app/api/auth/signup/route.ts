@@ -74,7 +74,6 @@ export async function POST(request: NextRequest) {
       'OTP_SENT'
     );
   } catch (error) {
-    console.error('[v0] Signup error:', error);
     return createErrorResponse('Internal server error', 500, 'SERVER_ERROR');
   }
 }

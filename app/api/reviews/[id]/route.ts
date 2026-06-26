@@ -19,7 +19,6 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 
     return createResponse(review, 'Review updated successfully', 200);
   } catch (error: any) {
-    console.error('[v0] Update review error:', error);
     return createErrorResponse('Failed to update review', 500, 'SERVER_ERROR');
   }
 }
@@ -36,7 +35,6 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
 
     return createResponse(null, 'Review deleted successfully', 200);
   } catch (error: any) {
-    console.error('[v0] Delete review error:', error);
     return createErrorResponse('Failed to delete review', 500, 'SERVER_ERROR');
   }
 }

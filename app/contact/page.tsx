@@ -36,7 +36,6 @@ export default function ContactPage() {
         setTimeout(() => setSubmitted(false), 5000);
       }
     } catch (error) {
-      console.error('[v0] Submit contact error:', error);
     } finally {
       setLoading(false);
     }

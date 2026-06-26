@@ -58,7 +58,6 @@ export async function GET(request: NextRequest) {
       'SUCCESS'
     );
   } catch (error) {
-    console.error('[v0] Get admin orders error:', error);
     return createErrorResponse('Failed to fetch orders', 500, 'SERVER_ERROR');
   }
 }
@@ -97,7 +96,6 @@ export async function PUT(request: NextRequest) {
 
     return createResponse(order, 'Order updated successfully', 200, 'SUCCESS');
   } catch (error) {
-    console.error('[v0] Update order error:', error);
     return createErrorResponse('Failed to update order', 500, 'SERVER_ERROR');
   }
 }

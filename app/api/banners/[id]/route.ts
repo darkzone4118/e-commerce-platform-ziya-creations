@@ -16,7 +16,6 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 
     return createResponse(banner, 'Banner updated successfully', 200);
   } catch (error: any) {
-    console.error('[v0] Update banner error:', error);
     return createErrorResponse('Failed to update banner', 500, 'SERVER_ERROR');
   }
 }
@@ -33,7 +32,6 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
 
     return createResponse(null, 'Banner deleted successfully', 200);
   } catch (error: any) {
-    console.error('[v0] Delete banner error:', error);
     return createErrorResponse('Failed to delete banner', 500, 'SERVER_ERROR');
   }
 }

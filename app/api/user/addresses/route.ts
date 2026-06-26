@@ -16,7 +16,6 @@ export async function GET(request: NextRequest) {
 
     return createResponse(addresses, 'Addresses fetched successfully', 200, 'SUCCESS');
   } catch (error) {
-    console.error('[v0] Get addresses error:', error);
     return createErrorResponse('Failed to fetch addresses', 500, 'SERVER_ERROR');
   }
 }
@@ -59,7 +58,6 @@ export async function POST(request: NextRequest) {
 
     return createResponse(address, 'Address created successfully', 201, 'CREATED');
   } catch (error) {
-    console.error('[v0] Create address error:', error);
     return createErrorResponse('Failed to create address', 500, 'SERVER_ERROR');
   }
 }

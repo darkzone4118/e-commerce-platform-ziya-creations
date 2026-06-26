@@ -17,7 +17,6 @@ export async function POST(req: NextRequest) {
     // 2. Send email notification
     // For now, we'll just return success
 
-    console.log('[v0] Contact form submitted:', { name, email, phone, subject, message });
 
     return NextResponse.json({
       statusCode: 'SUCCESS',
@@ -25,7 +24,6 @@ export async function POST(req: NextRequest) {
       data: null,
     });
   } catch (error: any) {
-    console.error('[v0] Contact submission error:', error);
     return NextResponse.json(
       { statusCode: 'ERROR', message: 'Failed to submit contact form' },
       { status: 500 }

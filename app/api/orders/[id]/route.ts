@@ -26,7 +26,6 @@ export async function GET(
 
     return createResponse(order, 'Order fetched successfully', 200, 'SUCCESS');
   } catch (error) {
-    console.error('[v0] Get order error:', error);
     return createErrorResponse('Failed to fetch order', 500, 'SERVER_ERROR');
   }
 }

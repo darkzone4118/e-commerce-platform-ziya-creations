@@ -36,7 +36,6 @@ export async function GET(req: NextRequest) {
       data: wishlist,
     });
   } catch (error: any) {
-    console.error('[v0] Get wishlist error:', error);
     return NextResponse.json(
       { statusCode: 'ERROR', message: 'Failed to fetch wishlist' },
       { status: 500 }
@@ -85,7 +84,6 @@ export async function POST(req: NextRequest) {
       data: wishlist,
     });
   } catch (error: any) {
-    console.error('[v0] Update wishlist error:', error);
     return NextResponse.json(
       { statusCode: 'ERROR', message: 'Failed to update wishlist' },
       { status: 500 }

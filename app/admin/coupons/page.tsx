@@ -73,7 +73,7 @@ export default function AdminCoupons() {
         setPaginationData(data.data.pagination);
       }
     } catch (error) {
-      console.error('[v0] Fetch coupons error:', error);
+      // Error handled silently
     } finally {
       setPageLoading(false);
     }
@@ -155,7 +155,6 @@ export default function AdminCoupons() {
         }
       }
     } catch (error) {
-      console.error('[v0] Submit form error:', error);
       alert('Failed to save coupon');
     }
   };
@@ -209,7 +208,6 @@ export default function AdminCoupons() {
         setCoupons(coupons.filter((c) => c._id !== couponId));
       }
     } catch (error) {
-      console.error('[v0] Delete coupon error:', error);
       alert('Failed to delete coupon');
     }
   };

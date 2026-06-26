@@ -47,7 +47,6 @@ export default function AdminLogin() {
       }
     } catch (err) {
       setError('An error occurred. Please try again.');
-      console.error('[v0] Admin login error:', err);
     } finally {
       setLoading(false);
     }

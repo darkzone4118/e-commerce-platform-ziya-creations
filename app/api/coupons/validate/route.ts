@@ -57,7 +57,6 @@ export async function POST(request: NextRequest) {
       'SUCCESS'
     );
   } catch (error) {
-    console.error('[v0] Validate coupon error:', error);
     return createErrorResponse('Failed to validate coupon', 500, 'SERVER_ERROR');
   }
 }

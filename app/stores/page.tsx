@@ -34,7 +34,6 @@ export default function StoresPage() {
         setStores(data.data || []);
       }
     } catch (error) {
-      console.error('[v0] Fetch stores error:', error);
     } finally {
       setLoading(false);
     }

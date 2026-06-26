@@ -36,7 +36,6 @@ export default function WishlistPage() {
           setWishlistItems(data.data || []);
         }
       } catch (error) {
-        console.error('[v0] Wishlist error:', error);
       } finally {
         setLoading(false);
       }
@@ -59,7 +58,6 @@ export default function WishlistPage() {
 
       setWishlistItems(wishlistItems.filter((item) => item._id !== productId));
     } catch (error) {
-      console.error('[v0] Remove error:', error);
     }
   };
 

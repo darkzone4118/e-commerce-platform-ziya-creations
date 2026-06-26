@@ -59,7 +59,6 @@ export default function AdminStores() {
         setStores(data.data || []);
       }
     } catch (error) {
-      console.error('[v0] Fetch stores error:', error);
       setError('Failed to fetch stores');
     } finally {
       setLoading(false);
@@ -115,7 +114,6 @@ export default function AdminStores() {
         setError(data.message || 'Failed to save store');
       }
     } catch (error: any) {
-      console.error('[v0] Save store error:', error);
       setError('Failed to save store');
     }
   };
@@ -163,7 +161,6 @@ export default function AdminStores() {
         setError(data.message || 'Failed to delete store');
       }
     } catch (error: any) {
-      console.error('[v0] Delete store error:', error);
       setError('Failed to delete store');
     }
   };

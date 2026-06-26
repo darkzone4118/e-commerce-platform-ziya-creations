@@ -45,7 +45,7 @@ export default function Orders() {
         setOrders(data.data);
       }
     } catch (error) {
-      console.error('[v0] Fetch orders error:', error);
+      // Error handled silently
     } finally {
       setLoadingOrders(false);
     }

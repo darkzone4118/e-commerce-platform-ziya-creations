@@ -6,11 +6,8 @@ import { createResponse, createErrorResponse } from '@/lib/auth';
 import { NextRequest } from 'next/server';
 
 export async function GET(request: NextRequest) {
-  console.log("product api hit");
   try {
     await connectDB();
-    console.log('Category modelName:', Category.modelName);
-    console.log('Registered models:', mongoose.modelNames());
     const { searchParams } = new URL(request.url);
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '12');
@@ -36,7 +33,6 @@ export async function GET(request: NextRequest) {
         { description: { $regex: search, $options: 'i' } },
       ];
     }
-    console.log('Before populate:', mongoose.modelNames());
     const products = await Product.find(query)
       .populate('category', 'name slug')
       .sort(sort)
@@ -61,7 +57,6 @@ export async function GET(request: NextRequest) {
       'SUCCESS'
     );
   } catch (error) {
-    console.error('[v0] Get products error:', error);
     return createErrorResponse('Failed to fetch products', 500, 'SERVER_ERROR');
   }
 }

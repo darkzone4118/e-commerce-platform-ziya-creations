@@ -88,7 +88,6 @@ export async function POST(request: NextRequest) {
       'VERIFIED'
     );
   } catch (error) {
-    console.error('[v0] OTP verification error:', error);
     return createErrorResponse('Internal server error', 500, 'SERVER_ERROR');
   }
 }

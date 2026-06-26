@@ -13,7 +13,6 @@ export async function GET(req: NextRequest) {
     const banners = await Banner.find(query).sort({ displayOrder: 1 });
     return createResponse(banners,'Banners fetched successfully', 200);
   } catch (error: any) {
-    console.error('[v0] Get banners error:', error);
     return createErrorResponse('Failed to fetch banners', 500, 'SERVER_ERROR');
   }
 }
@@ -28,7 +27,6 @@ export async function POST(req: NextRequest) {
 
     return createResponse('Banner created successfully', newBanner, 201);
   } catch (error: any) {
-    console.error('[v0] Create banner error:', error);
     return createErrorResponse('Failed to create banner', 500, 'SERVER_ERROR');
   }
 }

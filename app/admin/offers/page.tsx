@@ -44,7 +44,6 @@ export default function AdminOffersPage() {
         setOffers(data.data);
       }
     } catch (error) {
-      console.error('Failed to fetch offers:', error);
     }
   };
 
@@ -73,7 +72,6 @@ export default function AdminOffersPage() {
         alert(`Error: ${data.message}`);
       }
     } catch (error) {
-      console.error('Failed to save offer:', error);
       alert('Failed to save offer');
     } finally {
       setLoading(false);
@@ -109,7 +107,6 @@ export default function AdminOffersPage() {
         alert(`Error: ${data.message}`);
       }
     } catch (error) {
-      console.error('Failed to delete offer:', error);
       alert('Failed to delete offer');
     }
   };
@@ -130,7 +127,6 @@ export default function AdminOffersPage() {
         await fetchOffers();
       }
     } catch (error) {
-      console.error('Failed to toggle offer:', error);
     }
   };
 

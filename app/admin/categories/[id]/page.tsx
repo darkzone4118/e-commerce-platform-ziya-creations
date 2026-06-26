@@ -55,7 +55,6 @@ export default function EditCategoryPage() {
           setError('Category not found');
         }
       } catch (err) {
-        console.error('[v0] Load category error:', err);
         setError('Failed to load category');
       } finally {
         setLoading(false);

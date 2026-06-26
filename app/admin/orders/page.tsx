@@ -90,7 +90,7 @@ export default function AdminOrders() {
         setPaginationData(data.data.pagination);
       }
     } catch (error) {
-      console.error('[v0] Fetch orders error:', error);
+      // Error handled silently
     } finally {
       setPageLoading(false);
     }
@@ -133,7 +133,7 @@ export default function AdminOrders() {
         }
       }
     } catch (error) {
-      console.error('[v0] Update order error:', error);
+      // Error handled silently
     }
   };
 

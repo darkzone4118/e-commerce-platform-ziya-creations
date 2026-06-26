@@ -16,7 +16,6 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 
     return createResponse(store, 'Store updated successfully', 200);
   } catch (error: any) {
-    console.error('[v0] Update store error:', error);
     return createErrorResponse('Failed to update store', 500, 'SERVER_ERROR');
   }
 }
@@ -33,7 +32,6 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
 
     return createResponse(null, 'Store deleted successfully', 200);
   } catch (error: any) {
-    console.error('[v0] Delete store error:', error);
     return createErrorResponse('Failed to delete store', 500, 'SERVER_ERROR');
   }
 }

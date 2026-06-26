@@ -48,7 +48,6 @@ export default function AdminReviews() {
         setReviews(filteredReviews);
       }
     } catch (error) {
-      console.error('[v0] Fetch reviews error:', error);
       setError('Failed to fetch reviews');
     } finally {
       setLoading(false);
@@ -73,7 +72,6 @@ export default function AdminReviews() {
         setTimeout(() => setSuccess(''), 3000);
       }
     } catch (error) {
-      console.error('[v0] Approve review error:', error);
       setError('Failed to approve review');
     }
   };
@@ -96,7 +94,6 @@ export default function AdminReviews() {
         setTimeout(() => setSuccess(''), 3000);
       }
     } catch (error) {
-      console.error('[v0] Toggle visibility error:', error);
       setError('Failed to toggle visibility');
     }
   };
@@ -119,7 +116,6 @@ export default function AdminReviews() {
         setTimeout(() => setSuccess(''), 3000);
       }
     } catch (error) {
-      console.error('[v0] Delete review error:', error);
       setError('Failed to delete review');
     }
   };

@@ -58,7 +58,6 @@ export default function ProductDetail() {
         setReviews(data.data.reviews || []);
       }
     } catch (error) {
-      console.error('[v0] Fetch product error:', error);
     } finally {
       setLoading(false);
     }

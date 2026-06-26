@@ -34,7 +34,6 @@ export async function GET(
       'SUCCESS'
     );
   } catch (error) {
-    console.error('[v0] Get product error:', error);
     return createErrorResponse('Failed to fetch product', 500, 'SERVER_ERROR');
   }
 }

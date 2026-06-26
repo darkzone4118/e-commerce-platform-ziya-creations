@@ -20,7 +20,6 @@ export async function GET(
 
     return createResponse(category, 'Category fetched successfully', 200, 'SUCCESS');
   } catch (error) {
-    console.error('[v0] Get category error:', error);
     return createErrorResponse('Failed to fetch category', 500, 'SERVER_ERROR');
   }
 }
@@ -63,7 +62,6 @@ export async function PUT(
 
     return createResponse(category, 'Category updated successfully', 200, 'SUCCESS');
   } catch (error) {
-    console.error('[v0] Update category error:', error);
     return createErrorResponse('Failed to update category', 500, 'SERVER_ERROR');
   }
 }
@@ -91,7 +89,6 @@ export async function DELETE(
 
     return createResponse(null, 'Category deleted successfully', 200, 'SUCCESS');
   } catch (error) {
-    console.error('[v0] Delete category error:', error);
     return createErrorResponse('Failed to delete category', 500, 'SERVER_ERROR');
   }
 }
