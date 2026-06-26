@@ -12,7 +12,6 @@ export async function GET(request: NextRequest) {
     
     return createResponse(categories, 'Categories fetched successfully', 200, 'SUCCESS');
   } catch (error) {
-    console.error('[v0] Get categories error:', error);
     return createErrorResponse('Failed to fetch categories', 500, 'SERVER_ERROR');
   }
 }
@@ -51,7 +50,6 @@ export async function POST(request: NextRequest) {
 
     return createResponse(category, 'Category created successfully', 201, 'SUCCESS');
   } catch (error) {
-    console.error('[v0] Create category error:', error);
     return createErrorResponse('Failed to create category', 500, 'SERVER_ERROR');
   }
 }

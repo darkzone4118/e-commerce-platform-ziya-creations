@@ -59,7 +59,6 @@ export async function POST(request: NextRequest) {
 
     return createResponse(product, 'Product created successfully', 201, 'CREATED');
   } catch (error) {
-    console.error('[v0] Create product error:', error);
     return createErrorResponse('Failed to create product', 500, 'SERVER_ERROR');
   }
 }

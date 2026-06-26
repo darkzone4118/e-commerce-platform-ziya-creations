@@ -13,7 +13,6 @@ export async function GET(req: NextRequest) {
     const stores = await Store.find(query).sort({ city: 1 });
     return createResponse(stores, 'Stores fetched successfully', 200);
   } catch (error: any) {
-    console.error('[v0] Get stores error:', error);
     return createErrorResponse('Failed to fetch stores', 500, 'SERVER_ERROR');
   }
 }
@@ -28,7 +27,6 @@ export async function POST(req: NextRequest) {
 
     return createResponse(newStore, 'Store created successfully', 201);
   } catch (error: any) {
-    console.error('[v0] Create store error:', error);
     return createErrorResponse('Failed to create store', 500, 'SERVER_ERROR');
   }
 }

@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
-import axios from 'axios';
+import { connectDB } from '@/lib/db';
+import Order from '@/lib/models/Order';
+import User from '@/lib/models/User';
+import { sendWhatsAppNotification, formatOrderConfirmationMessage } from '@/lib/whatsapp';
 
 export async function POST(request: NextRequest) {
   try {
@@ -25,39 +28,40 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Fetch order details from your database (you'll need to implement this)
-    // For now, we'll send WhatsApp notification with available info
-    const whatsappMessage = `Order Confirmed! 🎉
-
-Order ID: ${orderId}
-Payment ID: ${razorpayPaymentId}
-Amount: Successfully Charged
-
-Thank you for your purchase!
-
-View your order details in the Ziya Creations app.`;
-
-    try {
-      // Send WhatsApp message using a WhatsApp API (e.g., Twilio, WhatsApp Business API)
-      // This is a sample implementation - adjust based on your WhatsApp provider
-      if (process.env.WHATSAPP_API_URL) {
-        await axios.post(process.env.WHATSAPP_API_URL, {
-          to: '919472842179', // WhatsApp number
-          message: whatsappMessage,
-        });
-      }
-    } catch (whatsappError) {
-      console.error('[v0] WhatsApp notification error:', whatsappError);
-      // Don't fail the payment if WhatsApp notification fails
-    }
+    await connectDB();
 
     // Update order status in database to 'paid'
-    // This should be done in your backend order service
+    const order = await Order.findOne({ orderId })
+      .populate('user', 'name email phone')
+      .populate('items.product', 'name price');
+
+    if (!order) {
+      return NextResponse.json(
+        { statusCode: 'FAILED', message: 'Order not found' },
+        { status: 404 }
+      );
+    }
+
+    // Mark order as paid
+    order.paymentStatus = 'completed';
+    order.razorpayPaymentId = razorpayPaymentId;
+    order.status = 'confirmed';
+    await order.save();
+
+    // Send WhatsApp notification if user phone is available
     try {
-      // Mark order as paid in database
-      // await updateOrderPaymentStatus(orderId, 'paid', razorpayPaymentId);
-    } catch (dbError) {
-      console.error('[v0] Database update error:', dbError);
+      const userPhone = order.user?.phone || '';
+      
+      if (userPhone) {
+        const message = formatOrderConfirmationMessage(order);
+        await sendWhatsAppNotification({
+          phone: userPhone,
+          message,
+          orderId: order.orderId,
+        });
+      }
+    } catch (notificationError) {
+      // Don't fail the payment if WhatsApp notification fails
     }
 
     return NextResponse.json(
@@ -73,7 +77,6 @@ View your order details in the Ziya Creations app.`;
       { status: 200 }
     );
   } catch (error: any) {
-    console.error('[v0] Payment verification error:', error);
     return NextResponse.json(
       {
         statusCode: 'FAILED',

@@ -34,7 +34,6 @@ export async function GET(req: NextRequest) {
       'SUCCESS'
     );
   } catch (error) {
-    console.error('[v0] Search error:', error);
     return createErrorResponse('Search failed', 500, 'SERVER_ERROR');
   }
 }

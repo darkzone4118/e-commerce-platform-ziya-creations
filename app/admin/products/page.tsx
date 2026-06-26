@@ -49,7 +49,6 @@ export default function AdminProducts() {
         setProducts(data.data.products);
       }
     } catch (error) {
-      console.error('[v0] Fetch products error:', error);
     } finally {
       setLoadingProducts(false);
     }
@@ -76,7 +75,6 @@ export default function AdminProducts() {
         alert('Failed to delete product');
       }
     } catch (error) {
-      console.error('[v0] Delete product error:', error);
       alert('Error deleting product');
     }
   };

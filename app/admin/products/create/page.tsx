@@ -37,7 +37,6 @@ export default function CreateProductPage() {
           setCategories(data.data);
         }
       } catch (err) {
-        console.error('[v0] Error loading categories:', err);
       }
     };
 

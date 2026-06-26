@@ -15,7 +15,8 @@ export async function GET(
 
     await connectDB();
 
-    const order = await Order.findOne({ orderId: params.id, user: auth.userId })
+    // Only show paid orders
+    const order = await Order.findOne({ orderId: params.id, user: auth.userId, paymentStatus: 'completed' })
       .populate('items.product', 'name price images')
       .populate('address');
 
@@ -25,7 +26,6 @@ export async function GET(
 
     return createResponse(order, 'Order fetched successfully', 200, 'SUCCESS');
   } catch (error) {
-    console.error('[v0] Get order error:', error);
     return createErrorResponse('Failed to fetch order', 500, 'SERVER_ERROR');
   }
 }

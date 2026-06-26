@@ -54,7 +54,6 @@ export default function ManageAdmins() {
         setAdmins(data.data);
       }
     } catch (error) {
-      console.error('[v0] Fetch admins error:', error);
     } finally {
       setLoading(false);
     }
@@ -90,7 +89,6 @@ export default function ManageAdmins() {
       }
     } catch (error) {
       setMessage('Error creating admin');
-      console.error('[v0] Error:', error);
     } finally {
       setSubmitting(false);
     }

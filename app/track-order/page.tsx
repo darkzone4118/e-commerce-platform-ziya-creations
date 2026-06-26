@@ -26,7 +26,6 @@ export default function TrackOrderPage() {
       }
     } catch (error) {
       setError('Error tracking order. Please try again.');
-      console.error('[v0] Track order error:', error);
     } finally {
       setLoading(false);
     }

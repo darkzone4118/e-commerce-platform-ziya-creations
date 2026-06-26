@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useAuth } from '@/app/context/AuthContext';
 
 export default function Signup() {
   const [step, setStep] = useState<'form' | 'otp'>('form');
@@ -16,6 +17,14 @@ export default function Signup() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
+  const { user } = useAuth();
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (user && user.role === 'customer') {
+      router.push('/');
+    }
+  }, [user, router]);
 
   const handleSubmitForm = async (e: React.FormEvent) => {
     e.preventDefault();

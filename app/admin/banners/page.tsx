@@ -47,7 +47,6 @@ export default function AdminBanners() {
         setBanners(data.data || []);
       }
     } catch (error) {
-      console.error('[v0] Fetch banners error:', error);
       setError('Failed to fetch banners');
     } finally {
       setLoading(false);
@@ -103,7 +102,6 @@ export default function AdminBanners() {
         setError(data.message || 'Failed to save banner');
       }
     } catch (error) {
-      console.error('[v0] Save banner error:', error);
       setError('Failed to save banner');
     }
   };
@@ -145,7 +143,6 @@ export default function AdminBanners() {
         setError(data.message || 'Failed to delete banner');
       }
     } catch (error) {
-      console.error('[v0] Delete banner error:', error);
       setError('Failed to delete banner');
     }
   };

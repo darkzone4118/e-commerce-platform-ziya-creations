@@ -1,11 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Razorpay from 'razorpay';
 
-const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID || '',
-  key_secret: process.env.RAZORPAY_KEY_SECRET || '',
-});
-
 export async function POST(request: NextRequest) {
   try {
     const { amount, orderId, userEmail, userName } = await request.json();
@@ -16,6 +11,12 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+
+    // Initialize Razorpay here to avoid issues with missing env vars at build time
+    const razorpay = new Razorpay({
+      key_id: process.env.RAZORPAY_KEY_ID || 'key_placeholder',
+      key_secret: process.env.RAZORPAY_KEY_SECRET || 'secret_placeholder',
+    });
 
     const options = {
       amount: amount, // Amount in paise
@@ -39,7 +40,6 @@ export async function POST(request: NextRequest) {
       { status: 200 }
     );
   } catch (error: any) {
-    console.error('[v0] Razorpay create order error:', error);
     return NextResponse.json(
       {
         statusCode: 'FAILED',

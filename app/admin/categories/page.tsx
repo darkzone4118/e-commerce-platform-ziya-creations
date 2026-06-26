@@ -40,7 +40,6 @@ export default function AdminCategories() {
         setCategories(data.data);
       }
     } catch (error) {
-      console.error('[v0] Fetch categories error:', error);
     } finally {
       setLoadingCategories(false);
     }
@@ -67,7 +66,6 @@ export default function AdminCategories() {
         alert('Failed to delete category');
       }
     } catch (error) {
-      console.error('[v0] Delete category error:', error);
       alert('Error deleting category');
     }
   };

@@ -24,7 +24,6 @@ export async function GET(req: NextRequest) {
 
     return createResponse(reviews, 'Reviews fetched successfully', 200);
   } catch (error: any) {
-    console.error('[v0] Get reviews error:', error);
     return createErrorResponse('Failed to fetch reviews', 500, 'SERVER_ERROR');
   }
 }
@@ -55,7 +54,6 @@ export async function POST(req: NextRequest) {
 
     return createResponse(newReview, 'Review created successfully', 201);
   } catch (error: any) {
-    console.error('[v0] Create review error:', error);
     return createErrorResponse('Failed to create review', 500, 'SERVER_ERROR');
   }
 }

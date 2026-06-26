@@ -47,7 +47,6 @@ export async function POST(request: NextRequest) {
 
     return createResponse(order, 'Payment verified successfully', 200, 'SUCCESS');
   } catch (error) {
-    console.error('[v0] Payment verification error:', error);
     return createErrorResponse('Failed to verify payment', 500, 'SERVER_ERROR');
   }
 }

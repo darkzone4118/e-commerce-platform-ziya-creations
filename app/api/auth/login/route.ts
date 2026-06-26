@@ -28,7 +28,6 @@ export async function POST(request: NextRequest) {
 
     // SECURITY: Reject admin/superadmin from customer login
     if (user.role === 'admin' || user.role === 'super_admin') {
-      console.warn(`[v0] Admin login attempt from customer endpoint: ${email}`);
       return createErrorResponse(
         'Admin accounts cannot login from customer portal. Please use the admin login page.',
         401,
@@ -66,7 +65,6 @@ export async function POST(request: NextRequest) {
       'SUCCESS'
     );
   } catch (error) {
-    console.error('[v0] Login error:', error);
     return createErrorResponse('Internal server error', 500, 'SERVER_ERROR');
   }
 }

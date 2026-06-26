@@ -23,7 +23,6 @@ export async function POST(request: NextRequest) {
 
     // SECURITY: Only allow admin and super_admin roles
     if (user.role !== 'admin' && user.role !== 'super_admin') {
-      console.warn(`[v0] Non-admin login attempt from email: ${email}`);
       return createErrorResponse('Invalid email or password', 401, 'INVALID_CREDENTIALS');
     }
 
@@ -57,7 +56,6 @@ export async function POST(request: NextRequest) {
       'SUCCESS'
     );
   } catch (error) {
-    console.error('[v0] Admin login error:', error);
     return createErrorResponse('Internal server error', 500, 'SERVER_ERROR');
   }
 }

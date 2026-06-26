@@ -25,7 +25,6 @@ export default function ReviewsSection() {
           setReviews(data.data.slice(0, 6)); // Show first 6 reviews
         }
       } catch (error) {
-        console.error('[v0] Fetch reviews error:', error);
       } finally {
         setLoading(false);
       }

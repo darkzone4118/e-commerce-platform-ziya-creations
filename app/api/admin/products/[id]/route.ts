@@ -20,7 +20,6 @@ export async function GET(
 
     return createResponse(product, 'Product fetched successfully', 200, 'SUCCESS');
   } catch (error) {
-    console.error('[v0] Get product error:', error);
     return createErrorResponse('Failed to fetch product', 500, 'SERVER_ERROR');
   }
 }
@@ -52,7 +51,6 @@ export async function PUT(
 
     return createResponse(product, 'Product updated successfully', 200, 'SUCCESS');
   } catch (error) {
-    console.error('[v0] Update product error:', error);
     return createErrorResponse('Failed to update product', 500, 'SERVER_ERROR');
   }
 }
@@ -89,7 +87,6 @@ export async function DELETE(
 
     return createResponse(null, 'Product deleted successfully', 200, 'SUCCESS');
   } catch (error) {
-    console.error('[v0] Delete product error:', error);
     return createErrorResponse('Failed to delete product', 500, 'SERVER_ERROR');
   }
 }

@@ -87,7 +87,6 @@ export async function POST(request: NextRequest) {
       'CREATED'
     );
   } catch (error) {
-    console.error('[v0] Create order error:', error);
     return createErrorResponse('Failed to create order', 500, 'SERVER_ERROR');
   }
 }

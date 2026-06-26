@@ -199,31 +199,37 @@ function AddressForm({
 
 export default function Checkout() {
   const { items, total, clearCart } = useCart();
-  const { user, authToken } = useAuth();
+  const { user, authToken, loading: authLoading } = useAuth();
   const router = useRouter();
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [selectedAddress, setSelectedAddress] = useState<string>('');
-  const [loading, setLoading] = useState(true);
+  const [addressesLoading, setAddressesLoading] = useState(true);
   const [orderLoading, setOrderLoading] = useState(false);
   const [showAddressForm, setShowAddressForm] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
   useEffect(() => {
-    if (!user || !authToken) {
-      router.push('/auth/login');
-      return;
-    }
     if (items.length === 0) {
       router.push('/cart');
       return;
     }
-    fetchAddresses();
-  }, [user, items, router, authToken]);
+    // Wait for auth to load, then redirect if not authenticated
+    if (authLoading) {
+      return;
+    }
+    if (!authToken) {
+      router.push('/auth/login');
+      return;
+    }
+    if (user && authToken) {
+      fetchAddresses();
+    }
+  }, [user, items, router, authToken, authLoading]);
 
   const fetchAddresses = async () => {
     try {
-      setLoading(true);
+      setAddressesLoading(true);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/user/addresses`,
         {
@@ -243,16 +249,14 @@ export default function Checkout() {
         setError(data.message || 'Failed to load addresses');
       }
     } catch (error) {
-      console.error('[v0] Fetch addresses error:', error);
       setError('Failed to load addresses');
     } finally {
-      setLoading(false);
+      setAddressesLoading(false);
     }
   };
 
   const handleAddAddress = async (formData: any) => {
     try {
-      console.log('[v0] Adding address with data:', formData);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/user/addresses`,
         {
@@ -266,7 +270,6 @@ export default function Checkout() {
       );
 
       const data = await response.json();
-      console.log('[v0] Add address response:', data);
 
       if (data.statusCode === 'CREATED') {
         setSuccess('Address added successfully!');
@@ -276,7 +279,6 @@ export default function Checkout() {
         setError(data.message || 'Failed to add address');
       }
     } catch (err) {
-      console.error('[v0] Add address error:', err);
       setError('Failed to add address');
     }
   };
@@ -358,17 +360,25 @@ export default function Checkout() {
 
                   if (verifyResponse.data.statusCode === 'SUCCESS') {
                     setSuccess('Payment successful! Order confirmed.');
+                    setOrderLoading(false);
                     setTimeout(() => {
                       clearCart();
                       router.push(`/orders/${orderId}`);
                     }, 1500);
                   } else {
                     setError('Payment verification failed. Please contact support.');
+                    setOrderLoading(false);
                   }
                 } catch (err: any) {
                   setError(err.response?.data?.message || 'Payment verification failed');
+                  setOrderLoading(false);
                 }
-                setOrderLoading(false);
+              },
+              modal: {
+                ondismiss: () => {
+                  setOrderLoading(false);
+                  setError('Payment cancelled. Please try again.');
+                },
               },
               prefill: {
                 name: user.name,
@@ -398,9 +408,9 @@ export default function Checkout() {
     }
   };
 
-  if (!user) return null;
+  if (!user || authLoading) return null;
 
-  if (loading) {
+  if (addressesLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
